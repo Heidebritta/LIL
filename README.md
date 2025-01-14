@@ -1,2 +1,2 @@
 # LIL
-Repos for LinkedIn learning courses
+Repo for LinkedIn learning courses

@@ -2,19 +2,24 @@ require "selenium-webdriver"
 require "rspec"
 require "base64" 
 
-# TEST: Sign up for blog
+# TEST: 01_06 start
+# Sign up for blog
 describe "Blog application" do
   describe "signup to the blog application" do
     it "confirm that a user can successfully signup" do
+
+      # there is validation to prevent the name username. Use a timestamp to make username unique
+      timestamp = Time.now.to_i 
+
       driver = Selenium::WebDriver.for :firefox
   		# Go to signup form
   		driver.navigate.to "https://selenium-blog.herokuapp.com/signup"
   		# Fill out and submit form
   		username_field = driver.find_element(id: 'user_username')
-  		username_field.send_keys("userLisaDenholm")
+  		username_field.send_keys("user #{timestamp}")
 
   		email_field = driver.find_element(id: 'user_email')
-  		email_field.send_keys("userLisaDenholm@test.com")
+  		email_field.send_keys("user#{timestamp}@test.com")
 
   		password_field = driver.find_element(id: 'user_password')
   		password_field.send_keys("password")
@@ -25,7 +30,7 @@ describe "Blog application" do
   		# Confirm user is signed up successfully
   		banner = driver.find_element(id: 'flash_success')
   		banner_text = banner.text
-  		expect(banner_text).to eq("Welcome to the alpha blog user")
+  		expect(banner_text).to eq("Welcome to the alpha blog user #{timestamp}")
 
   		driver.quit
 	  end
